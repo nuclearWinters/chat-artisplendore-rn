@@ -54,7 +54,7 @@ const Login = props => {
                         Alert.alert("Falta ingresar contraseña.")
                     } else {
                         setLoading(true)
-                        axios.post(`http://192.168.1.64:3000/sign-in`, {
+                        axios.post(`http://192.168.0.7:3000/sign-in`, {
                             userInput: {
                                 Usuario: usuario,
                                 Contraseña: contraseña

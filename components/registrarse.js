@@ -58,7 +58,7 @@ const Registrarse = props => {
                         Alert.alert("Las contraseñas no coinciden.")
                     } else {
                         setLoading(true)
-                        axios.post(`http://192.168.1.64:3000/sign-up`, {
+                        axios.post(`http://192.168.0.7:3000/sign-up`, {
                             userInput: {
                                 Usuario: usuario,
                                 Contraseña: contraseña
@@ -69,7 +69,6 @@ const Registrarse = props => {
                             props.navigation.navigate("Login")
                         })
                         .catch(error => {
-                            console.log(error)
                             if (error.response !== undefined) {
                                 setLoading(false)
                                 Alert.alert(error.response.data.mensaje)
