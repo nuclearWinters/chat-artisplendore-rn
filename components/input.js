@@ -4,6 +4,7 @@ import {
   TextInput,
   View
 } from 'react-native';
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 const InputAndroid = (props) => {
     const _animated = new Animated.Value(0)
@@ -12,14 +13,22 @@ const InputAndroid = (props) => {
         containerStyle,
         value,
         placeholder,
-        bindedFunction
+        bindedFunction,
+        white
     } = props
     return (
         <View style={containerStyle}>
+            <View style={{width: 40, borderBottomWidth: 2, borderBottomColor: white ? "gray" : "rgba(255,255,255,1)", borderBottomtStyle: "solid", alignItems: "center", justifyContent: "center"}}>
+                <Icon name="user-alt" color="rgba(0,0,0,0.6)" size={20} />
+            </View>
+            <View style={{borderBottomWidth: 2, borderBottomColor: white ? "gray" : "rgba(255,255,255,1)", borderBottomStyle: "solid", width: 2, paddingRight: 5}}>
+                <View style={{borderRightWidth: 2, borderRightColor: white ? "gray" : "rgba(255,255,255,0.75)", borderRightStyle: "solid", marginVertical: 10, flex: 1}}></View>
+            </View>
             <TextInput
                 style={inputStyle}
                 underlineColorAndroid={'transparent'}
                 placeholder={placeholder}
+                placeholderTextColor={white ? "gray" : "rgba(255,255,255,0.8)"}
                 value={value}
                 onChangeText={bindedFunction}
                 onFocus={() => {
@@ -57,15 +66,22 @@ const InputAndroidPassword = (props) => {
         containerStyle,
         value,
         placeholder,
-        bindedFunction
+        bindedFunction,
+        white
     } = props
     return (
         <View style={containerStyle}>
+            <View style={{width: 40, borderBottomWidth: 2, borderBottomColor: white ? "gray" : "rgba(255,255,255,1)", borderBottomtStyle: "solid", alignItems: "center", justifyContent: "center"}}>
+                <Icon name="lock" color="rgba(0,0,0,0.6)" size={20} />
+            </View>
+            <View style={{borderBottomWidth: 2, borderBottomColor: white ? "gray" : "rgba(255,255,255,1)", borderBottomStyle: "solid", width: 2, paddingRight: 5}}>
+                <View style={{borderRightWidth: 2, borderRightColor: white ? "gray" : "rgba(255,255,255,0.75)", borderRightStyle: "solid", marginVertical: 10, flex: 1}}></View>
+            </View>
             <TextInput
                 secureTextEntry={true}
                 style={inputStyle}
                 underlineColorAndroid={'transparent'}
-                placeholderTextColor="rgb(153,153,153)"
+                placeholderTextColor={white ? "gray" : "rgba(255,255,255,0.8)"}
                 placeholder={placeholder}
                 value={value}
                 onChangeText={bindedFunction}

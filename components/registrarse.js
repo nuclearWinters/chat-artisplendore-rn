@@ -40,11 +40,13 @@ const Registrarse = props => {
             flexGrow: 1,
             justifyContent: 'space-between'
         }}>
-            <View pointerEvents={loading ? "none" : "auto"}>
-                <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15}}>Registrarse</Text>
-                <InputAndroid placeholder="Ingresa usuario..." bindedFunction={cambiarUsuario} containerStyle={{marginHorizontal: 20}} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2}} value={usuario}/>
-                <InputAndroidPassword placeholder="Ingresa contraseña..." bindedFunction={cambiarContraseña} containerStyle={{marginHorizontal: 20}} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2}} value={contraseña} />
-                <InputAndroidPassword placeholder="Confirma contraseña..." bindedFunction={cambiarContraseñaConfirmar} containerStyle={{marginHorizontal: 20}} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2}} value={contraseñaConfirmar} />
+            <View style={{marginHorizontal: 40}} pointerEvents={loading ? "none" : "auto"}>
+                <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15}}>Registrate</Text>
+            </View>
+            <View style={{marginHorizontal: 40, flex: 1, alignItems: "center", justifyContent: "center"}} pointerEvents={loading ? "none" : "auto"}>
+                <InputAndroid placeholder="Ingresa usuario..." bindedFunction={cambiarUsuario} containerStyle={{flexDirection: "row"}} white={true} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2, color: "black", flex: 1}} value={usuario}/>
+                <InputAndroidPassword placeholder="Ingresa contraseña..." bindedFunction={cambiarContraseña} containerStyle={{flexDirection: "row", marginTop: 20}} white={true} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2, color: "black", flex: 1}} value={contraseña} />
+                <InputAndroidPassword placeholder="Confirma contraseña..." bindedFunction={cambiarContraseñaConfirmar} containerStyle={{flexDirection: "row", marginTop: 10}} white={true} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2, color: "black", flex: 1}} value={contraseñaConfirmar} />
             </View>
             <View pointerEvents={loading ? "none" : "auto"} style={{paddingVertical: 80, marginHorizontal: 40}}>
                 <Button title="Registrarse" onPress={() => {
@@ -58,7 +60,7 @@ const Registrarse = props => {
                         Alert.alert("Las contraseñas no coinciden.")
                     } else {
                         setLoading(true)
-                        axios.post(`http://192.168.0.7:3000/sign-up`, {
+                        axios.post(`http://192.168.1.64:3000/sign-up`, {
                             userInput: {
                                 Usuario: usuario,
                                 Contraseña: contraseña
@@ -67,6 +69,7 @@ const Registrarse = props => {
                         .then(acceso => {
                             setLoading(false)
                             props.navigation.navigate("Login")
+                            Alert.alert("¡Registrado exitosamente!")
                         })
                         .catch(error => {
                             if (error.response !== undefined) {

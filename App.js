@@ -14,7 +14,7 @@ const AppNavigator = createStackNavigator({
 }, {
   defaultNavigationOptions: {
     headerTintColor: "white",
-    headerStyle: {backgroundColor: "rgb(0,160,200)"},
+    headerStyle: {backgroundColor: "#669182"},
     headerPressColorAndroid: "white",
     headerTitleStyle: {fontFamily: "Roboto-Medium", fontSize: 26, fontWeight: "bold"}
   }
@@ -24,19 +24,20 @@ const LoginNavigator = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
-      title: "Iniciar sesión"
+      title: "Iniciar sesión",
+      header: null
     }
   },
   Registrarse: {
     screen: Registrarse,
     navigationOptions: {
-      title: "Registrarse"
+      title: "Registrate"
     }
   }
 }, {
   defaultNavigationOptions: {
     headerTintColor: "white",
-    headerStyle: {backgroundColor: "rgb(0,160,200)"},
+    headerStyle: {backgroundColor: "#669182"},
     headerPressColorAndroid: "white",
     headerTitleStyle: {fontFamily: "Roboto-Medium", fontSize: 26, fontWeight: "bold"}
   }

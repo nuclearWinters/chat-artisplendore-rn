@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, Button, Alert, AsyncStorage, ScrollView, ActivityIndicator } from "react-native"
+import { View, Text, Button, Alert, AsyncStorage, ScrollView, ActivityIndicator, ImageBackground, TouchableOpacity } from "react-native"
 import axios from "axios"
 import { InputAndroid, InputAndroidPassword } from "./input"
+import backgroundimage from "../imgs/chat.png"
 
 const Login = props => {
 
@@ -31,63 +32,66 @@ const Login = props => {
     }
 
     return(
-        <ScrollView contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'space-between'
-        }}>
-            <View pointerEvents={loading ? "none" : "auto"}>
-                <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15}}>Iniciar sesión</Text>
-                <InputAndroid placeholder="Ingresa usuario..." bindedFunction={cambiarUsuario} containerStyle={{marginHorizontal: 20}} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2}} value={usuario}/>
-                <InputAndroidPassword placeholder="Ingresa contraseña..." bindedFunction={cambiarContraseña} containerStyle={{marginHorizontal: 20}} inputStyle={{fontSize: 20, borderBottomColor: "gray", borderBottomWidth: 2}} value={contraseña} />
-            </View>
-            <View pointerEvents={loading ? "none" : "auto"} style={{paddingVertical: 80, marginHorizontal: 40}}>
-                <View style={{paddingVertical: 40}}>
-                    <Button title="Registarse" onPress={() => {
-                        props.navigation.navigate("Registrarse")
-                    }}
-                    />
+        <ImageBackground source={backgroundimage} style={{width: '100%', height: '100%'}}>
+            <ScrollView contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent: 'space-between'
+            }}>
+                <View style={{marginHorizontal: 40}} pointerEvents={loading ? "none" : "auto"}>
+                    <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15, color: "white", letterSpacing: 2}}>Inicio de sesión</Text>
                 </View>
-                <Button title="Inicia sesión" onPress={() => {
-                    if (usuario === "") {
-                        Alert.alert("Falta ingresar usuario.")
-                    } else if (contraseña === "") {
-                        Alert.alert("Falta ingresar contraseña.")
-                    } else {
-                        setLoading(true)
-                        axios.post(`http://192.168.0.7:3000/sign-in`, {
-                            userInput: {
-                                Usuario: usuario,
-                                Contraseña: contraseña
-                            }
-                        })
-                        .then(acceso => {
-                            AsyncStorage.setItem("token", acceso.data)
-                            .then(token => {
-                                setLoading(false)
-                                props.navigation.navigate("Main", {token: acceso.data})
+                <View style={{marginHorizontal: 40, flex: 1, alignItems: "center", justifyContent: "center"}} pointerEvents={loading ? "none" : "auto"}>
+                    <InputAndroid placeholder="Usuario..." bindedFunction={cambiarUsuario} containerStyle={{flexDirection: "row", backgroundColor: "rgba(0,0,0,0.1)"}} inputStyle={{fontSize: 20, borderBottomColor: "white", borderBottomWidth: 2, color: "white", flex: 1}} value={usuario}/>
+                    <InputAndroidPassword placeholder="Contraseña..." bindedFunction={cambiarContraseña} containerStyle={{flexDirection: "row", backgroundColor: "rgba(0,0,0,0.1)", marginTop: 20}} inputStyle={{fontSize: 20, borderBottomColor: "white", borderBottomWidth: 2, color: "white", flex: 1}} value={contraseña} />
+                    <TouchableOpacity onPress={() => {
+                        if (usuario === "") {
+                            Alert.alert("Falta ingresar usuario.")
+                        } else if (contraseña === "") {
+                            Alert.alert("Falta ingresar contraseña.")
+                        } else {
+                            setLoading(true)
+                            axios.post(`http://192.168.1.64:3000/sign-in`, {
+                                userInput: {
+                                    Usuario: usuario,
+                                    Contraseña: contraseña
+                                }
+                            })
+                            .then(acceso => {
+                                AsyncStorage.setItem("token", acceso.data)
+                                .then(token => {
+                                    setLoading(false)
+                                    props.navigation.navigate("Main", {token: acceso.data})
+                                })
+                                .catch(error => {
+                                    setLoading(false)
+                                    Alert.alert("Error. Intenta de nuevo.")
+                                })
                             })
                             .catch(error => {
-                                setLoading(false)
-                                Alert.alert("Error. Intenta de nuevo.")
+                                if (error.response !== undefined) {
+                                    setLoading(false)
+                                    Alert.alert(error.response.data.mensaje)
+                                } else {
+                                    setLoading(false)
+                                    Alert.alert("Error de conexión.")
+                                }
                             })
-                        })
-                        .catch(error => {
-                            if (error.response !== undefined) {
-                                setLoading(false)
-                                Alert.alert(error.response.data.mensaje)
-                            } else {
-                                setLoading(false)
-                                Alert.alert("Error de conexión.")
-                            }
-                        })
-                    }}}
-                />
-            </View>
-            {loading && <View style={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0, alignItems: "center", justifyContent: "center"}}>
-                <ActivityIndicator size="large" />
-            </View>}
-        </ScrollView>
-
+                        }}} style={{height: 35, elevation: 5, backgroundColor: "white", borderRadius: 80, alignItems: "center", justifyContent: "center", marginTop: 30, width: "100%"}}>
+                        <Text style={{fontWeight: "bold", fontSize: 20, color: "rgba(0,0,0,0.75)"}}>Iniciar sesión</Text>
+                    </TouchableOpacity>
+                </View>
+                <View pointerEvents={loading ? "none" : "auto"} style={{paddingVertical: 40, marginHorizontal: 40, alignItems: "center", justifyContent: "center"}}>
+                    <TouchableOpacity onPress={() => {
+                        props.navigation.navigate("Registrarse")
+                    }} >
+                        <Text style={{color: "white", fontSize: 20, letterSpacing: 2}}>Registrarse</Text>
+                    </TouchableOpacity>
+                </View>
+                {loading && <View style={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0, alignItems: "center", justifyContent: "center"}}>
+                    <ActivityIndicator size="large" />
+                </View>}
+            </ScrollView>
+        </ImageBackground>
     )
 }
 
