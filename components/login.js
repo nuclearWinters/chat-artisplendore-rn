@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, Button, Alert, AsyncStorage, ScrollView, ActivityIndicator, ImageBackground, TouchableOpacity } from "react-native"
+import { View, Text, Button, Alert, AsyncStorage, ScrollView, ActivityIndicator, ImageBackground, TouchableOpacity, Platform } from "react-native"
 import axios from "axios"
 import { InputAndroid, InputAndroidPassword } from "./input"
 import backgroundimage from "../imgs/chat.png"
@@ -38,7 +38,14 @@ const Login = props => {
                 justifyContent: 'space-between'
             }}>
                 <View style={{marginHorizontal: 40}} pointerEvents={loading ? "none" : "auto"}>
-                    <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15, color: "white", letterSpacing: 2}}>Inicio de sesión</Text>
+                    <Text style={{fontSize: 24, fontWeight: "bold", textAlign: "center", paddingVertical: 15, color: "white", letterSpacing: 2,
+                    ...Platform.select({
+                        ios: {
+                          marginTop: 40,
+                        },
+                        android: {},
+                      }),
+                }}>Inicio de sesión</Text>
                 </View>
                 <View style={{marginHorizontal: 40, flex: 1, alignItems: "center", justifyContent: "center"}} pointerEvents={loading ? "none" : "auto"}>
                     <InputAndroid placeholder="Usuario..." bindedFunction={cambiarUsuario} containerStyle={{flexDirection: "row", backgroundColor: "rgba(0,0,0,0.1)"}} inputStyle={{fontSize: 20, borderBottomColor: "white", borderBottomWidth: 2, color: "white", flex: 1}} value={usuario}/>
@@ -50,7 +57,7 @@ const Login = props => {
                             Alert.alert("Falta ingresar contraseña.")
                         } else {
                             setLoading(true)
-                            axios.post(`http://192.168.1.64:3000/sign-in`, {
+                            axios.post(`http://192.168.1.21:3000/sign-in`, {
                                 userInput: {
                                     Usuario: usuario,
                                     Contraseña: contraseña

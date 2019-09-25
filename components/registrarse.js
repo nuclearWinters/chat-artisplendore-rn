@@ -60,7 +60,7 @@ const Registrarse = props => {
                         Alert.alert("Las contraseñas no coinciden.")
                     } else {
                         setLoading(true)
-                        axios.post(`http://192.168.1.64:3000/sign-up`, {
+                        axios.post(`http://192.168.1.21:3000/sign-up`, {
                             userInput: {
                                 Usuario: usuario,
                                 Contraseña: contraseña

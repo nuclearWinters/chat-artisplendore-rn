@@ -25,7 +25,13 @@ const InputAndroid = (props) => {
                 <View style={{borderRightWidth: 2, borderRightColor: white ? "gray" : "rgba(255,255,255,0.75)", borderRightStyle: "solid", marginVertical: 10, flex: 1}}></View>
             </View>
             <TextInput
-                style={inputStyle}
+                style={[inputStyle, {...Platform.select({
+                    ios: {
+                      paddingVertical: 10,
+                      paddingLeft: 10
+                    },
+                    android: {},
+                  }),}]}
                 underlineColorAndroid={'transparent'}
                 placeholder={placeholder}
                 placeholderTextColor={white ? "gray" : "rgba(255,255,255,0.8)"}
@@ -79,7 +85,13 @@ const InputAndroidPassword = (props) => {
             </View>
             <TextInput
                 secureTextEntry={true}
-                style={inputStyle}
+                style={[inputStyle, {...Platform.select({
+                    ios: {
+                      paddingVertical: 10,
+                      paddingLeft: 10
+                    },
+                    android: {},
+                  }),}]}
                 underlineColorAndroid={'transparent'}
                 placeholderTextColor={white ? "gray" : "rgba(255,255,255,0.8)"}
                 placeholder={placeholder}

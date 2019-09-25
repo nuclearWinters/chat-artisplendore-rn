@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
     headerTintColor: "white",
     headerStyle: {backgroundColor: "#669182"},
     headerPressColorAndroid: "white",
-    headerTitleStyle: {fontFamily: "Roboto-Medium", fontSize: 26, fontWeight: "bold"}
+    headerTitleStyle: {fontSize: 26, fontWeight: "bold"}
   }
 });
 
@@ -39,7 +39,7 @@ const LoginNavigator = createStackNavigator({
     headerTintColor: "white",
     headerStyle: {backgroundColor: "#669182"},
     headerPressColorAndroid: "white",
-    headerTitleStyle: {fontFamily: "Roboto-Medium", fontSize: 26, fontWeight: "bold"}
+    headerTitleStyle: {fontSize: 26, fontWeight: "bold"}
   }
 });
 
