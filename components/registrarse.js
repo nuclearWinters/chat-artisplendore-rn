@@ -60,7 +60,7 @@ const Registrarse = props => {
                         Alert.alert("Las contraseñas no coinciden.")
                     } else {
                         setLoading(true)
-                        axios.post(`http://192.168.1.21:3000/sign-up`, {
+                        axios.post(`https://chat-artisplendore-node.herokuapp.com/sign-up`, {
                             userInput: {
                                 Usuario: usuario,
                                 Contraseña: contraseña
